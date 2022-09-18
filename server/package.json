@@ -1,0 +1,13 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node main.ts",
+    "nodemon": "nodemon main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
