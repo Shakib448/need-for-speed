@@ -20,7 +20,8 @@
       "@components/*": ["./src/components/*"],
       "@app": ["./pages/_app.tsx"],
       "@utils/*": ["./src/utils/*"],
-      "@validation/*": ["./src/validation/*"]
+      "@validation/*": ["./src/validation/*"],
+      "@server/*": ["./server/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
