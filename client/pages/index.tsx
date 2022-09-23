@@ -1,14 +1,14 @@
 import Layout from "@common/Layout";
-import Login from "@components/Login";
+import Register from "@components/Register";
 import { ReactElement } from "react";
-import type { NextPageWithLayout } from "./_app";
+import type { NextPageWithLayout } from "@app";
 
-const Home: NextPageWithLayout = () => {
-  return <Login />;
+const SignUp: NextPageWithLayout = () => {
+  return <Register />;
 };
 
-Home.getLayout = (page: ReactElement) => {
+SignUp.getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>;
 };
 
-export default Home;
+export default SignUp;
