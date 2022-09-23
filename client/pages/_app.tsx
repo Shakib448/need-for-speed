@@ -1,3 +1,4 @@
+// @ts-nocheck
 import "../styles/globals.css";
 import React, { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";

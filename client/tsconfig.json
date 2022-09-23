@@ -18,7 +18,8 @@
     "paths": {
       "@common/*": ["./src/common/*"],
       "@components/*": ["./src/components/*"],
-      "@app": ["./pages/_app.tsx"]
+      "@app": ["./pages/_app.tsx"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
