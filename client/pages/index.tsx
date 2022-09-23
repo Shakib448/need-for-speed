@@ -1,7 +1,14 @@
-import type { NextPage } from "next";
+import Layout from "@common/Layout";
+import Login from "@components/Login";
+import { ReactElement } from "react";
+import type { NextPageWithLayout } from "./_app";
 
-const Home: NextPage = () => {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+const Home: NextPageWithLayout = () => {
+  return <Login />;
+};
+
+Home.getLayout = (page: ReactElement) => {
+  return <Layout>{page}</Layout>;
 };
 
 export default Home;
