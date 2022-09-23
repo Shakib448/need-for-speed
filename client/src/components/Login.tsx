@@ -1,25 +1,61 @@
 import React from "react";
 import Link from "next/link";
+import useYupValidationResolver from "@utils/validationResolver";
+import { SignInValidation } from "@validation/SignIn.validation";
+import { useForm, SubmitHandler } from "react-hook-form";
+
+type FormValues = {
+  email: string;
+  password: string;
+};
 
 const Login: React.FC = () => {
+  const resolver = useYupValidationResolver(SignInValidation);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>({ resolver });
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    try {
+      console.log("data", data);
+      reset();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col">
       <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-        <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="bg-white px-6 py-8 rounded shadow-md text-black w-full"
+        >
           <h1 className="mb-8 text-3xl text-center">Sign in</h1>
           <input
             type="text"
             className="block border border-grey-light w-full p-3 rounded mb-4"
-            name="email"
+            {...register("email")}
             placeholder="Email"
           />
-
+          {errors.email?.message && (
+            <p className="text-red-500 text-xs mb-2">{errors.email?.message}</p>
+          )}
           <input
             type="password"
             className="block border border-grey-light w-full p-3 rounded mb-4"
-            name="password"
+            {...register("password")}
             placeholder="Password"
           />
+
+          {errors.password?.message && (
+            <p className="text-red-500 text-xs mb-2">
+              {errors.password?.message}
+            </p>
+          )}
 
           <button
             type="submit"
@@ -27,7 +63,7 @@ const Login: React.FC = () => {
           >
             Login
           </button>
-        </div>
+        </form>
 
         <div className="text-grey-dark mt-6">
           Not have an account?

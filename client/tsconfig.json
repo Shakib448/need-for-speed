@@ -19,7 +19,8 @@
       "@common/*": ["./src/common/*"],
       "@components/*": ["./src/components/*"],
       "@app": ["./pages/_app.tsx"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@validation/*": ["./src/validation/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
