@@ -1,6 +1,6 @@
 // @ts-nocheck
 import connectDB from "@server/config/db";
-import SignUpUser from "@server/models/SingIn.models";
+import UserModel from "@server/models/User.models";
 import {
   userGenerateToken,
   userRefreshToken,
@@ -20,13 +20,12 @@ const handler = async (
 ) => {
   try {
     const { name, email, password } = req.body;
-
-    const userExists = await SignUpUser.findOne({ email });
+    const userExists = await UserModel.findOne({ email });
 
     if (userExists) {
       res.status(400).json({ message: "User already exists" });
     } else {
-      const user = await SignUpUser.create({
+      const user = await UserModel.create({
         name,
         email,
         password,
