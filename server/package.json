@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node main.ts",
-    "nodemon": "nodemon main.ts"
+    "server": "nodemon main.ts",
+    "client": "npm run dev --prefix ../client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
