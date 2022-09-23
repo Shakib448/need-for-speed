@@ -1,8 +1,11 @@
+import { useMutation } from "@tanstack/react-query";
 import useYupValidationResolver from "@utils/validationResolver";
 import { SignUpValidation } from "@validation/SignUp.validation";
+import axios from "axios";
 import Link from "next/link";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
 
 type FormValues = {
   name: string;
@@ -20,17 +23,29 @@ const Register: React.FC = () => {
     reset,
     formState: { errors },
   } = useForm<FormValues>({ resolver });
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+
+  const RegisterMutation = useMutation(
+    async (formData: FormValues) => {
+      const { data } = await axios.post("/api/register", formData);
+      return data;
+    },
+    {
+      onSuccess: (data) => {},
+    }
+  );
+  const onSubmit: SubmitHandler<FormValues> = async (formData) => {
     try {
-      console.log("data", data);
+      await RegisterMutation.mutateAsync(formData);
       reset();
-    } catch (error) {
-      console.log(error);
+    } catch (err: any) {
+      toast.error(err.response?.data?.message);
     }
   };
 
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col">
+      <ToastContainer />
+
       <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
         <form
           onSubmit={handleSubmit(onSubmit)}

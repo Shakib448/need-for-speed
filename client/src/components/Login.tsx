@@ -3,6 +3,9 @@ import Link from "next/link";
 import useYupValidationResolver from "@utils/validationResolver";
 import { SignInValidation } from "@validation/SignIn.validation";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 type FormValues = {
   email: string;
@@ -12,23 +15,34 @@ type FormValues = {
 const Login: React.FC = () => {
   const resolver = useYupValidationResolver(SignInValidation);
 
+  const LoginMutation = useMutation(
+    async (formData: FormValues) => {
+      const { data } = await axios.post("/api/login", formData);
+      return data;
+    },
+    {
+      onSuccess: (data) => {},
+    }
+  );
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<FormValues>({ resolver });
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (formData) => {
     try {
-      console.log("data", data);
+      await LoginMutation.mutateAsync(formData);
       reset();
-    } catch (error) {
-      console.log(error);
+    } catch (err: any) {
+      toast.error(err.response?.data?.message);
     }
   };
 
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col">
+      <ToastContainer />
       <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
         <form
           onSubmit={handleSubmit(onSubmit)}
